@@ -1,7 +1,4 @@
 import streamlit as st
-from reportlab.lib.pagesizes import A4
-from reportlab.pdfgen import canvas
-import tempfile
 
 # =========================
 # BASE DE DADOS DE RECEITAS
@@ -10,57 +7,50 @@ import tempfile
 receitas = [
     {
         "nome": "Bacalhau à Brás",
-        "categoria": "Tradicional",
         "ingredientes": ["bacalhau", "batata palha", "ovos", "cebola", "alho", "azeite", "salsa"],
         "modo": "Fogão",
         "tempo": "20 minutos",
         "temperatura": "Médio",
         "preparacao": [
-            "Demolhar o bacalhau durante 24 horas, trocando a água.",
-            "Cozer ligeiramente e desfiar.",
+            "Demolhar e desfiar o bacalhau.",
             "Refogar cebola e alho em azeite.",
             "Adicionar o bacalhau desfiado.",
-            "Juntar a batata palha.",
-            "Adicionar ovos batidos lentamente.",
+            "Juntar batata palha.",
+            "Adicionar ovos batidos e envolver.",
             "Finalizar com salsa."
         ]
     },
     {
         "nome": "Bacalhau com Natas",
-        "categoria": "Forno",
         "ingredientes": ["bacalhau", "batata", "cebola", "alho", "natas", "azeite", "queijo"],
         "modo": "Forno",
         "tempo": "45 minutos",
         "temperatura": "180 ºC",
         "preparacao": [
-            "Demolhar e desfiar o bacalhau.",
-            "Cozer ou fritar as batatas.",
+            "Cozer e desfiar o bacalhau.",
+            "Fritar a batata em cubos.",
             "Refogar cebola e alho.",
-            "Misturar bacalhau, batata e natas.",
+            "Misturar tudo com natas.",
             "Colocar num tabuleiro.",
-            "Polvilhar com queijo.",
-            "Levar ao forno até gratinar."
+            "Polvilhar queijo e levar ao forno."
         ]
     },
     {
-        "nome": "Bacalhau à Gomes de Sá",
-        "categoria": "Forno",
-        "ingredientes": ["bacalhau", "batata", "cebola", "ovos", "azeite", "azeitonas"],
-        "modo": "Forno",
-        "tempo": "40 minutos",
-        "temperatura": "180 ºC",
+        "nome": "Pataniscas de Bacalhau",
+        "ingredientes": ["bacalhau", "farinha", "ovos", "cebola", "salsa"],
+        "modo": "Fritar",
+        "tempo": "25 minutos",
+        "temperatura": "Óleo médio",
         "preparacao": [
-            "Demolhar e desfiar o bacalhau.",
-            "Cozer batatas às rodelas.",
-            "Refogar cebola em azeite.",
-            "Dispor tudo em camadas.",
-            "Adicionar ovos cozidos e azeitonas.",
-            "Levar ao forno."
+            "Desfiar bacalhau cozido.",
+            "Misturar farinha, ovos e água.",
+            "Adicionar cebola e salsa.",
+            "Envolver o bacalhau.",
+            "Fritar colheradas até dourar."
         ]
     },
     {
         "nome": "Bacalhau à Lagareiro",
-        "categoria": "Forno",
         "ingredientes": ["bacalhau", "batata a murro", "alho", "azeite"],
         "modo": "Forno",
         "tempo": "50 minutos",
@@ -69,12 +59,43 @@ receitas = [
             "Assar o bacalhau no forno.",
             "Dar murro nas batatas.",
             "Aquecer azeite com alho.",
-            "Regar tudo e levar novamente ao forno."
+            "Regar bacalhau e batatas."
+        ]
+    },
+    {
+        "nome": "Arroz de Bacalhau",
+        "ingredientes": ["bacalhau", "arroz", "tomate", "cebola", "alho"],
+        "modo": "Fogão",
+        "tempo": "30 minutos",
+        "temperatura": "Médio",
+        "preparacao": [
+            "Refogar cebola e alho.",
+            "Adicionar tomate.",
+            "Juntar bacalhau desfiado.",
+            "Adicionar arroz e água.",
+            "Cozinhar até o arroz estar pronto."
+        ]
+    },
+
+    # ====== +10 RECEITAS NOVAS ======
+
+    {
+        "nome": "Bacalhau à Gomes de Sá",
+        "ingredientes": ["bacalhau", "batata", "cebola", "ovos", "azeite", "azeitonas"],
+        "modo": "Forno",
+        "tempo": "40 minutos",
+        "temperatura": "180 ºC",
+        "preparacao": [
+            "Cozer o bacalhau e desfiar.",
+            "Cozer as batatas em rodelas.",
+            "Refogar cebola em azeite.",
+            "Misturar tudo num tabuleiro.",
+            "Adicionar ovos cozidos e azeitonas.",
+            "Levar ao forno."
         ]
     },
     {
         "nome": "Bacalhau Assado no Forno",
-        "categoria": "Forno",
         "ingredientes": ["bacalhau", "cebola", "alho", "azeite", "batata"],
         "modo": "Forno",
         "tempo": "50 minutos",
@@ -83,26 +104,50 @@ receitas = [
             "Colocar bacalhau num tabuleiro.",
             "Adicionar batatas e cebola.",
             "Regar com azeite e alho.",
-            "Assar até dourar."
+            "Levar ao forno até assar."
         ]
     },
     {
-        "nome": "Bacalhau à Zé do Pipo",
-        "categoria": "Forno",
-        "ingredientes": ["bacalhau", "puré de batata", "cebola", "maionese", "azeite"],
+        "nome": "Salada de Bacalhau",
+        "ingredientes": ["bacalhau", "grão", "cebola", "azeite", "vinagre"],
+        "modo": "Frio",
+        "tempo": "15 minutos",
+        "temperatura": "Não aplicável",
+        "preparacao": [
+            "Cozer o bacalhau e o grão.",
+            "Desfiar o bacalhau.",
+            "Misturar todos os ingredientes.",
+            "Temperar com azeite e vinagre."
+        ]
+    },
+    {
+        "nome": "Bacalhau com Broa",
+        "ingredientes": ["bacalhau", "broa", "alho", "azeite"],
         "modo": "Forno",
         "tempo": "35 minutos",
         "temperatura": "180 ºC",
         "preparacao": [
-            "Assar o bacalhau.",
-            "Cobrir com puré.",
-            "Adicionar maionese.",
-            "Levar ao forno até gratinar."
+            "Assar o bacalhau ligeiramente.",
+            "Triturar broa com alho e azeite.",
+            "Cobrir o bacalhau.",
+            "Levar novamente ao forno."
+        ]
+    },
+    {
+        "nome": "Bacalhau à Minhota",
+        "ingredientes": ["bacalhau", "batata", "cebola", "azeite"],
+        "modo": "Fritar",
+        "tempo": "30 minutos",
+        "temperatura": "Óleo médio",
+        "preparacao": [
+            "Fritar o bacalhau.",
+            "Fritar as batatas.",
+            "Refogar cebola em azeite.",
+            "Juntar tudo e servir."
         ]
     },
     {
         "nome": "Bacalhau Espiritual",
-        "categoria": "Forno",
         "ingredientes": ["bacalhau", "cenoura", "pão", "leite", "cebola", "azeite"],
         "modo": "Forno",
         "tempo": "40 minutos",
@@ -111,54 +156,11 @@ receitas = [
             "Demolhar pão no leite.",
             "Refogar cebola.",
             "Misturar bacalhau e cenoura.",
-            "Levar ao forno."
-        ]
-    },
-    {
-        "nome": "Bacalhau à Minhota",
-        "categoria": "Fritos",
-        "ingredientes": ["bacalhau", "batata", "cebola", "azeite"],
-        "modo": "Fritar",
-        "tempo": "30 minutos",
-        "temperatura": "Óleo médio",
-        "preparacao": [
-            "Fritar bacalhau.",
-            "Fritar batatas.",
-            "Refogar cebola.",
-            "Juntar tudo."
-        ]
-    },
-    {
-        "nome": "Pataniscas de Bacalhau",
-        "categoria": "Fritos",
-        "ingredientes": ["bacalhau", "farinha", "ovos", "cebola", "salsa"],
-        "modo": "Fritar",
-        "tempo": "25 minutos",
-        "temperatura": "Óleo médio",
-        "preparacao": [
-            "Misturar todos os ingredientes.",
-            "Aquecer óleo.",
-            "Fritar colheradas até dourar."
-        ]
-    },
-    {
-        "nome": "Arroz de Bacalhau",
-        "categoria": "Fogão",
-        "ingredientes": ["bacalhau", "arroz", "tomate", "cebola", "alho"],
-        "modo": "Fogão",
-        "tempo": "30 minutos",
-        "temperatura": "Médio",
-        "preparacao": [
-            "Refogar cebola e alho.",
-            "Adicionar tomate.",
-            "Juntar bacalhau.",
-            "Adicionar arroz e água.",
-            "Cozinhar."
+            "Envolver tudo e levar ao forno."
         ]
     },
     {
         "nome": "Massada de Bacalhau",
-        "categoria": "Fogão",
         "ingredientes": ["bacalhau", "massa", "tomate", "cebola", "alho"],
         "modo": "Fogão",
         "tempo": "30 minutos",
@@ -166,41 +168,13 @@ receitas = [
         "preparacao": [
             "Refogar cebola e alho.",
             "Adicionar tomate.",
-            "Juntar bacalhau.",
+            "Juntar bacalhau desfiado.",
             "Adicionar massa e água.",
-            "Cozinhar."
-        ]
-    },
-    {
-        "nome": "Salada de Bacalhau",
-        "categoria": "Leve",
-        "ingredientes": ["bacalhau", "grão", "cebola", "azeite", "vinagre"],
-        "modo": "Frio",
-        "tempo": "15 minutos",
-        "temperatura": "Não aplicável",
-        "preparacao": [
-            "Cozer bacalhau e grão.",
-            "Misturar tudo.",
-            "Temperar."
-        ]
-    },
-    {
-        "nome": "Bacalhau com Broa",
-        "categoria": "Forno",
-        "ingredientes": ["bacalhau", "broa", "alho", "azeite"],
-        "modo": "Forno",
-        "tempo": "35 minutos",
-        "temperatura": "180 ºC",
-        "preparacao": [
-            "Assar bacalhau.",
-            "Triturar broa com alho e azeite.",
-            "Cobrir bacalhau.",
-            "Levar ao forno."
+            "Cozinhar até a massa estar pronta."
         ]
     },
     {
         "nome": "Bacalhau à Portuguesa",
-        "categoria": "Tradicional",
         "ingredientes": ["bacalhau", "batata", "ovos", "cebola", "azeite"],
         "modo": "Fogão",
         "tempo": "25 minutos",
@@ -208,19 +182,33 @@ receitas = [
         "preparacao": [
             "Cozer bacalhau, batatas e ovos.",
             "Cortar tudo.",
-            "Regar com azeite."
+            "Regar com azeite.",
+            "Adicionar cebola crua."
+        ]
+    },
+    {
+        "nome": "Bacalhau à Zé do Pipo",
+        "ingredientes": ["bacalhau", "puré de batata", "cebola", "maionese", "azeite"],
+        "modo": "Forno",
+        "tempo": "35 minutos",
+        "temperatura": "180 ºC",
+        "preparacao": [
+            "Assar bacalhau.",
+            "Cobrir com puré.",
+            "Adicionar maionese.",
+            "Levar ao forno até gratinar."
         ]
     },
     {
         "nome": "Bacalhau à Brás no Forno",
-        "categoria": "Forno",
         "ingredientes": ["bacalhau", "batata palha", "ovos", "cebola", "azeite"],
         "modo": "Forno",
         "tempo": "30 minutos",
         "temperatura": "180 ºC",
         "preparacao": [
-            "Preparar à Brás.",
-            "Colocar no forno para gratinar."
+            "Preparar bacalhau à Brás.",
+            "Colocar num tabuleiro.",
+            "Levar ao forno para gratinar."
         ]
     }
 ]
@@ -239,57 +227,28 @@ def adaptar_receita(receita, substituto):
     return nova
 
 def ingredientes_em_falta(receita, ingredientes_user):
-    return [i for i in receita["ingredientes"] if i not in ingredientes_user]
+    return [ing for ing in receita["ingredientes"] if ing not in ingredientes_user]
 
-def receitas_possiveis(lista, ingredientes_user):
-    return [r for r in lista if not ingredientes_em_falta(r, ingredientes_user)]
-
-def gerar_pdf(receita):
-    temp = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
-    c = canvas.Canvas(temp.name, pagesize=A4)
-    y = 800
-
-    c.setFont("Helvetica-Bold", 16)
-    c.drawString(50, y, receita["nome"])
-    y -= 30
-
-    c.setFont("Helvetica", 12)
-    c.drawString(50, y, f"Modo: {receita['modo']}")
-    y -= 20
-    c.drawString(50, y, f"Tempo: {receita['tempo']}")
-    y -= 20
-    c.drawString(50, y, f"Temperatura: {receita['temperatura']}")
-    y -= 30
-
-    c.drawString(50, y, "Ingredientes:")
-    y -= 20
-    for ing in receita["ingredientes"]:
-        c.drawString(60, y, f"- {ing}")
-        y -= 15
-
-    y -= 20
-    c.drawString(50, y, "Preparação:")
-    y -= 20
-    for i, p in enumerate(receita["preparacao"], 1):
-        c.drawString(60, y, f"{i}. {p}")
-        y -= 15
-
-    c.save()
-    return temp.name
+def receitas_possiveis(receitas_lista, ingredientes_user):
+    return [
+        r for r in receitas_lista
+        if not ingredientes_em_falta(r, ingredientes_user)
+    ]
 
 # =========================
-# INTERFACE
+# INTERFACE STREAMLIT
 # =========================
 
-st.set_page_config("App de Receitas", layout="centered")
+st.set_page_config(page_title="App de Receitas", layout="centered")
 st.title("🍽️ App de Receitas Inteligente")
 
 tem_bacalhau = st.radio("Tens bacalhau?", ["Sim", "Não"])
 substituto = "bacalhau"
 
 if tem_bacalhau == "Não":
+    st.subheader("🔁 Ingredientes que podem substituir o bacalhau")
     substituto = st.selectbox(
-        "Substituir bacalhau por:",
+        "Escolhe um ingrediente:",
         ["alho francês", "frango", "atum", "cogumelos", "legumes"]
     )
 
@@ -298,32 +257,17 @@ receitas_ativas = [
     for r in receitas
 ]
 
-categoria = st.selectbox(
-    "Categoria:",
-    ["Todas"] + sorted({r["categoria"] for r in receitas_ativas})
-)
-
-modo = st.selectbox(
-    "Modo de confeção:",
-    ["Todos"] + sorted({r["modo"] for r in receitas_ativas})
-)
-
-filtradas = [
-    r for r in receitas_ativas
-    if (categoria == "Todas" or r["categoria"] == categoria)
-    and (modo == "Todos" or r["modo"] == modo)
-]
-
+st.subheader("🥗 Ingredientes que tens em casa")
 ingredientes_user = st.multiselect(
-    "Ingredientes que tens:",
-    sorted({i for r in filtradas for i in r["ingredientes"]})
+    "Seleciona:",
+    sorted({ing for r in receitas_ativas for ing in r["ingredientes"]})
 )
 
 if ingredientes_user:
-    possiveis = receitas_possiveis(filtradas, ingredientes_user)
+    possiveis = receitas_possiveis(receitas_ativas, ingredientes_user)
 
     if possiveis:
-        st.success("Receitas possíveis:")
+        st.success("✅ Receitas possíveis")
         for r in possiveis:
             with st.expander(r["nome"]):
                 st.write("**Ingredientes:**", ", ".join(r["ingredientes"]))
@@ -333,9 +277,8 @@ if ingredientes_user:
                 st.write("**Preparação:**")
                 for i, p in enumerate(r["preparacao"], 1):
                     st.write(f"{i}. {p}")
-
-                pdf = gerar_pdf(r)
-                with open(pdf, "rb") as f:
-                    st.download_button("📄 Exportar PDF", f, file_name=f"{r['nome']}.pdf")
     else:
-        st.error("Não tens ingredientes suficientes para nenhuma receita.")
+        st.error("❌ Não tens ingredientes suficientes")
+        for r in receitas_ativas:
+            with st.expander(r["nome"]):
+                st.write("❗ Faltam:", ", ".join(ingredientes_em_falta(r, ingredientes_user)))
