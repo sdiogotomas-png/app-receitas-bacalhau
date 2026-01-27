@@ -5,7 +5,6 @@ import streamlit as st
 # =========================
 
 receitas = [
-    # ---------- RECEITAS ANTERIORES ----------
     {
         "nome": "Bacalhau à Brás",
         "ingredientes": ["bacalhau", "batata palha", "ovos", "cebola", "alho", "azeite", "salsa"],
@@ -13,7 +12,7 @@ receitas = [
         "tempo": "20 minutos",
         "temperatura": "Fogo médio",
         "preparacao": [
-            "Demolhar e desfiar o bacalhau.",
+            "Desfiar o bacalhau.",
             "Refogar cebola e alho em azeite.",
             "Adicionar o bacalhau desfiado.",
             "Juntar a batata palha.",
@@ -32,22 +31,8 @@ receitas = [
             "Fritar batatas em cubos.",
             "Refogar cebola e alho.",
             "Misturar bacalhau, batata e natas.",
-            "Colocar num tabuleiro e polvilhar com queijo.",
-            "Levar ao forno até dourar."
-        ]
-    },
-    {
-        "nome": "Pataniscas de Bacalhau",
-        "ingredientes": ["bacalhau", "farinha", "ovos", "cebola", "salsa"],
-        "modo": "Fritar",
-        "tempo": "25 minutos",
-        "temperatura": "Óleo médio",
-        "preparacao": [
-            "Desfiar o bacalhau.",
-            "Misturar farinha e ovos.",
-            "Adicionar cebola, salsa e bacalhau.",
-            "Aquecer o óleo.",
-            "Fritar colheradas até ficarem douradas."
+            "Colocar num tabuleiro.",
+            "Polvilhar com queijo e levar ao forno."
         ]
     },
     {
@@ -60,25 +45,9 @@ receitas = [
             "Assar o bacalhau.",
             "Dar um murro nas batatas.",
             "Aquecer azeite com alho.",
-            "Regar o bacalhau e as batatas."
+            "Regar tudo antes de servir."
         ]
     },
-    {
-        "nome": "Arroz de Bacalhau",
-        "ingredientes": ["bacalhau", "arroz", "tomate", "cebola", "alho"],
-        "modo": "Fogão",
-        "tempo": "30 minutos",
-        "temperatura": "Fogo médio",
-        "preparacao": [
-            "Refogar cebola e alho.",
-            "Adicionar tomate.",
-            "Juntar bacalhau desfiado.",
-            "Adicionar arroz e água.",
-            "Cozinhar até o arroz estar pronto."
-        ]
-    },
-
-    # ---------- +10 NOVAS RECEITAS ----------
     {
         "nome": "Bacalhau à Gomes de Sá",
         "ingredientes": ["bacalhau", "batata", "cebola", "ovos", "azeite", "azeitonas"],
@@ -90,7 +59,7 @@ receitas = [
             "Cortar tudo em rodelas.",
             "Dispor em camadas com cebola.",
             "Regar com azeite.",
-            "Levar ao forno e finalizar com ovos e azeitonas."
+            "Levar ao forno e adicionar ovos e azeitonas."
         ]
     },
     {
@@ -101,7 +70,7 @@ receitas = [
         "temperatura": "180 ºC",
         "preparacao": [
             "Assar o bacalhau.",
-            "Triturar a broa com alho e azeite.",
+            "Triturar broa com alho e azeite.",
             "Cobrir o bacalhau.",
             "Levar novamente ao forno."
         ]
@@ -120,15 +89,41 @@ receitas = [
         ]
     },
     {
+        "nome": "Pataniscas",
+        "ingredientes": ["bacalhau", "farinha", "ovos", "cebola", "salsa"],
+        "modo": "Fritar",
+        "tempo": "25 minutos",
+        "temperatura": "Óleo médio",
+        "preparacao": [
+            "Desfiar o bacalhau.",
+            "Misturar farinha e ovos.",
+            "Adicionar cebola e salsa.",
+            "Fritar colheradas até dourar."
+        ]
+    },
+    {
+        "nome": "Arroz de Bacalhau",
+        "ingredientes": ["bacalhau", "arroz", "tomate", "cebola", "alho"],
+        "modo": "Fogão",
+        "tempo": "30 minutos",
+        "temperatura": "Fogo médio",
+        "preparacao": [
+            "Refogar cebola e alho.",
+            "Adicionar tomate.",
+            "Juntar bacalhau desfiado.",
+            "Adicionar arroz e água.",
+            "Cozinhar até o arroz estar pronto."
+        ]
+    },
+    {
         "nome": "Bacalhau à Portuguesa",
         "ingredientes": ["bacalhau", "batata", "ovos", "cebola", "azeite"],
         "modo": "Fogão",
         "tempo": "35 minutos",
         "temperatura": "Fogo médio",
         "preparacao": [
-            "Cozer o bacalhau.",
-            "Cozer batatas e ovos.",
-            "Cortar tudo em rodelas.",
+            "Cozer bacalhau, batatas e ovos.",
+            "Cortar em rodelas.",
             "Regar com azeite e cebola."
         ]
     },
@@ -141,7 +136,7 @@ receitas = [
         "preparacao": [
             "Cozer o bacalhau.",
             "Demolhar pão em leite.",
-            "Misturar tudo.",
+            "Misturar todos os ingredientes.",
             "Levar ao forno até gratinar."
         ]
     }
@@ -153,15 +148,26 @@ receitas = [
 
 def adaptar_receita(receita, substituto):
     nova = receita.copy()
+
     nova["nome"] = receita["nome"].replace("Bacalhau", substituto.capitalize())
+
     nova["ingredientes"] = [
         substituto if ing == "bacalhau" else ing
         for ing in receita["ingredientes"]
     ]
+
+    nova["preparacao"] = [
+        passo.replace("bacalhau", substituto)
+             .replace("Bacalhau", substituto.capitalize())
+        for passo in receita["preparacao"]
+    ]
+
     return nova
+
 
 def ingredientes_em_falta(receita, ingredientes_user):
     return [ing for ing in receita["ingredientes"] if ing not in ingredientes_user]
+
 
 def receitas_possiveis(lista_receitas, ingredientes_user):
     return [r for r in lista_receitas if not ingredientes_em_falta(r, ingredientes_user)]
@@ -181,20 +187,28 @@ if tem_bacalhau == "Não":
     st.subheader("🔁 Ingredientes que podem substituir o bacalhau")
     substituto = st.selectbox(
         "Escolhe o ingrediente:",
-        ["alho francês", "frango", "atum", "cogumelos", "legumes"]
+        ["frango", "alho francês", "atum", "cogumelos", "legumes"]
     )
 
-# Aplicar substituição ANTES de qualquer verificação
+# Adaptar TODAS as receitas
 receitas_ativas = [
     adaptar_receita(r, substituto) if substituto != "bacalhau" else r
     for r in receitas
 ]
 
+# =========================
+# INGREDIENTES DO UTILIZADOR
+# =========================
+
 st.subheader("🥗 Ingredientes que tens em casa")
-ingredientes_user = st.multiselect(
-    "Seleciona:",
-    sorted({ing for r in receitas_ativas for ing in r["ingredientes"]})
-)
+
+todos_ingredientes = sorted({ing for r in receitas_ativas for ing in r["ingredientes"]})
+
+ingredientes_user = st.multiselect("Seleciona:", todos_ingredientes)
+
+# 👉 REGRA FINAL (bug resolvido definitivamente)
+if substituto != "bacalhau" and substituto not in ingredientes_user:
+    ingredientes_user.append(substituto)
 
 # =========================
 # RESULTADOS
