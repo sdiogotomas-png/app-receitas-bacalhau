@@ -5,18 +5,19 @@ import streamlit as st
 # =========================
 
 receitas = [
+    # ---------- RECEITAS ANTERIORES ----------
     {
         "nome": "Bacalhau à Brás",
         "ingredientes": ["bacalhau", "batata palha", "ovos", "cebola", "alho", "azeite", "salsa"],
         "modo": "Fogão",
         "tempo": "20 minutos",
-        "temperatura": "Médio",
+        "temperatura": "Fogo médio",
         "preparacao": [
             "Demolhar e desfiar o bacalhau.",
             "Refogar cebola e alho em azeite.",
             "Adicionar o bacalhau desfiado.",
-            "Juntar batata palha.",
-            "Adicionar ovos batidos e envolver.",
+            "Juntar a batata palha.",
+            "Envolver os ovos batidos.",
             "Finalizar com salsa."
         ]
     },
@@ -28,11 +29,11 @@ receitas = [
         "temperatura": "180 ºC",
         "preparacao": [
             "Cozer e desfiar o bacalhau.",
-            "Fritar a batata em cubos.",
+            "Fritar batatas em cubos.",
             "Refogar cebola e alho.",
-            "Misturar tudo com natas.",
-            "Colocar num tabuleiro.",
-            "Polvilhar queijo e levar ao forno."
+            "Misturar bacalhau, batata e natas.",
+            "Colocar num tabuleiro e polvilhar com queijo.",
+            "Levar ao forno até dourar."
         ]
     },
     {
@@ -42,11 +43,11 @@ receitas = [
         "tempo": "25 minutos",
         "temperatura": "Óleo médio",
         "preparacao": [
-            "Desfiar bacalhau cozido.",
-            "Misturar farinha, ovos e água.",
-            "Adicionar cebola e salsa.",
-            "Envolver o bacalhau.",
-            "Fritar colheradas até dourar."
+            "Desfiar o bacalhau.",
+            "Misturar farinha e ovos.",
+            "Adicionar cebola, salsa e bacalhau.",
+            "Aquecer o óleo.",
+            "Fritar colheradas até ficarem douradas."
         ]
     },
     {
@@ -56,10 +57,10 @@ receitas = [
         "tempo": "50 minutos",
         "temperatura": "190 ºC",
         "preparacao": [
-            "Assar o bacalhau no forno.",
-            "Dar murro nas batatas.",
+            "Assar o bacalhau.",
+            "Dar um murro nas batatas.",
             "Aquecer azeite com alho.",
-            "Regar bacalhau e batatas."
+            "Regar o bacalhau e as batatas."
         ]
     },
     {
@@ -67,7 +68,7 @@ receitas = [
         "ingredientes": ["bacalhau", "arroz", "tomate", "cebola", "alho"],
         "modo": "Fogão",
         "tempo": "30 minutos",
-        "temperatura": "Médio",
+        "temperatura": "Fogo médio",
         "preparacao": [
             "Refogar cebola e alho.",
             "Adicionar tomate.",
@@ -77,34 +78,32 @@ receitas = [
         ]
     },
 
-    # ====== +10 RECEITAS NOVAS ======
-
+    # ---------- +10 NOVAS RECEITAS ----------
     {
         "nome": "Bacalhau à Gomes de Sá",
         "ingredientes": ["bacalhau", "batata", "cebola", "ovos", "azeite", "azeitonas"],
         "modo": "Forno",
-        "tempo": "40 minutos",
+        "tempo": "50 minutos",
         "temperatura": "180 ºC",
         "preparacao": [
-            "Cozer o bacalhau e desfiar.",
-            "Cozer as batatas em rodelas.",
-            "Refogar cebola em azeite.",
-            "Misturar tudo num tabuleiro.",
-            "Adicionar ovos cozidos e azeitonas.",
-            "Levar ao forno."
+            "Cozer o bacalhau e as batatas.",
+            "Cortar tudo em rodelas.",
+            "Dispor em camadas com cebola.",
+            "Regar com azeite.",
+            "Levar ao forno e finalizar com ovos e azeitonas."
         ]
     },
     {
-        "nome": "Bacalhau Assado no Forno",
-        "ingredientes": ["bacalhau", "cebola", "alho", "azeite", "batata"],
+        "nome": "Bacalhau com Broa",
+        "ingredientes": ["bacalhau", "broa", "alho", "azeite"],
         "modo": "Forno",
-        "tempo": "50 minutos",
-        "temperatura": "190 ºC",
+        "tempo": "40 minutos",
+        "temperatura": "180 ºC",
         "preparacao": [
-            "Colocar bacalhau num tabuleiro.",
-            "Adicionar batatas e cebola.",
-            "Regar com azeite e alho.",
-            "Levar ao forno até assar."
+            "Assar o bacalhau.",
+            "Triturar a broa com alho e azeite.",
+            "Cobrir o bacalhau.",
+            "Levar novamente ao forno."
         ]
     },
     {
@@ -121,94 +120,29 @@ receitas = [
         ]
     },
     {
-        "nome": "Bacalhau com Broa",
-        "ingredientes": ["bacalhau", "broa", "alho", "azeite"],
-        "modo": "Forno",
+        "nome": "Bacalhau à Portuguesa",
+        "ingredientes": ["bacalhau", "batata", "ovos", "cebola", "azeite"],
+        "modo": "Fogão",
         "tempo": "35 minutos",
-        "temperatura": "180 ºC",
+        "temperatura": "Fogo médio",
         "preparacao": [
-            "Assar o bacalhau ligeiramente.",
-            "Triturar broa com alho e azeite.",
-            "Cobrir o bacalhau.",
-            "Levar novamente ao forno."
-        ]
-    },
-    {
-        "nome": "Bacalhau à Minhota",
-        "ingredientes": ["bacalhau", "batata", "cebola", "azeite"],
-        "modo": "Fritar",
-        "tempo": "30 minutos",
-        "temperatura": "Óleo médio",
-        "preparacao": [
-            "Fritar o bacalhau.",
-            "Fritar as batatas.",
-            "Refogar cebola em azeite.",
-            "Juntar tudo e servir."
+            "Cozer o bacalhau.",
+            "Cozer batatas e ovos.",
+            "Cortar tudo em rodelas.",
+            "Regar com azeite e cebola."
         ]
     },
     {
         "nome": "Bacalhau Espiritual",
         "ingredientes": ["bacalhau", "cenoura", "pão", "leite", "cebola", "azeite"],
         "modo": "Forno",
-        "tempo": "40 minutos",
+        "tempo": "45 minutos",
         "temperatura": "180 ºC",
         "preparacao": [
-            "Demolhar pão no leite.",
-            "Refogar cebola.",
-            "Misturar bacalhau e cenoura.",
-            "Envolver tudo e levar ao forno."
-        ]
-    },
-    {
-        "nome": "Massada de Bacalhau",
-        "ingredientes": ["bacalhau", "massa", "tomate", "cebola", "alho"],
-        "modo": "Fogão",
-        "tempo": "30 minutos",
-        "temperatura": "Médio",
-        "preparacao": [
-            "Refogar cebola e alho.",
-            "Adicionar tomate.",
-            "Juntar bacalhau desfiado.",
-            "Adicionar massa e água.",
-            "Cozinhar até a massa estar pronta."
-        ]
-    },
-    {
-        "nome": "Bacalhau à Portuguesa",
-        "ingredientes": ["bacalhau", "batata", "ovos", "cebola", "azeite"],
-        "modo": "Fogão",
-        "tempo": "25 minutos",
-        "temperatura": "Médio",
-        "preparacao": [
-            "Cozer bacalhau, batatas e ovos.",
-            "Cortar tudo.",
-            "Regar com azeite.",
-            "Adicionar cebola crua."
-        ]
-    },
-    {
-        "nome": "Bacalhau à Zé do Pipo",
-        "ingredientes": ["bacalhau", "puré de batata", "cebola", "maionese", "azeite"],
-        "modo": "Forno",
-        "tempo": "35 minutos",
-        "temperatura": "180 ºC",
-        "preparacao": [
-            "Assar bacalhau.",
-            "Cobrir com puré.",
-            "Adicionar maionese.",
+            "Cozer o bacalhau.",
+            "Demolhar pão em leite.",
+            "Misturar tudo.",
             "Levar ao forno até gratinar."
-        ]
-    },
-    {
-        "nome": "Bacalhau à Brás no Forno",
-        "ingredientes": ["bacalhau", "batata palha", "ovos", "cebola", "azeite"],
-        "modo": "Forno",
-        "tempo": "30 minutos",
-        "temperatura": "180 ºC",
-        "preparacao": [
-            "Preparar bacalhau à Brás.",
-            "Colocar num tabuleiro.",
-            "Levar ao forno para gratinar."
         ]
     }
 ]
@@ -229,29 +163,28 @@ def adaptar_receita(receita, substituto):
 def ingredientes_em_falta(receita, ingredientes_user):
     return [ing for ing in receita["ingredientes"] if ing not in ingredientes_user]
 
-def receitas_possiveis(receitas_lista, ingredientes_user):
-    return [
-        r for r in receitas_lista
-        if not ingredientes_em_falta(r, ingredientes_user)
-    ]
+def receitas_possiveis(lista_receitas, ingredientes_user):
+    return [r for r in lista_receitas if not ingredientes_em_falta(r, ingredientes_user)]
 
 # =========================
-# INTERFACE STREAMLIT
+# INTERFACE
 # =========================
 
 st.set_page_config(page_title="App de Receitas", layout="centered")
 st.title("🍽️ App de Receitas Inteligente")
 
 tem_bacalhau = st.radio("Tens bacalhau?", ["Sim", "Não"])
+
 substituto = "bacalhau"
 
 if tem_bacalhau == "Não":
     st.subheader("🔁 Ingredientes que podem substituir o bacalhau")
     substituto = st.selectbox(
-        "Escolhe um ingrediente:",
+        "Escolhe o ingrediente:",
         ["alho francês", "frango", "atum", "cogumelos", "legumes"]
     )
 
+# Aplicar substituição ANTES de qualquer verificação
 receitas_ativas = [
     adaptar_receita(r, substituto) if substituto != "bacalhau" else r
     for r in receitas
@@ -263,11 +196,15 @@ ingredientes_user = st.multiselect(
     sorted({ing for r in receitas_ativas for ing in r["ingredientes"]})
 )
 
+# =========================
+# RESULTADOS
+# =========================
+
 if ingredientes_user:
     possiveis = receitas_possiveis(receitas_ativas, ingredientes_user)
 
     if possiveis:
-        st.success("✅ Receitas possíveis")
+        st.success("✅ Receitas que podes fazer:")
         for r in possiveis:
             with st.expander(r["nome"]):
                 st.write("**Ingredientes:**", ", ".join(r["ingredientes"]))
@@ -275,10 +212,13 @@ if ingredientes_user:
                 st.write("**Tempo:**", r["tempo"])
                 st.write("**Temperatura:**", r["temperatura"])
                 st.write("**Preparação:**")
-                for i, p in enumerate(r["preparacao"], 1):
-                    st.write(f"{i}. {p}")
+                for i, passo in enumerate(r["preparacao"], 1):
+                    st.write(f"{i}. {passo}")
     else:
-        st.error("❌ Não tens ingredientes suficientes")
+        st.error("❌ Não tens ingredientes suficientes.")
+        st.subheader("🔍 O que falta para cada receita:")
         for r in receitas_ativas:
             with st.expander(r["nome"]):
                 st.write("❗ Faltam:", ", ".join(ingredientes_em_falta(r, ingredientes_user)))
+                for i, passo in enumerate(r["preparacao"], 1):
+                    st.write(f"{i}. {passo}")
