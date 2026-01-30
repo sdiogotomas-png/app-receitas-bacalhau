@@ -206,6 +206,17 @@ todos_ingredientes = sorted({ing for r in receitas_ativas for ing in r["ingredie
 
 ingredientes_user = st.multiselect("Seleciona:", todos_ingredientes)
 
+ingredientes_user = st.multiselect("Seleciona:", todos_ingredientes)
+
+# Se NÃO tem bacalhau → usar substituto
+if substituto != "bacalhau" and substituto not in ingredientes_user:
+    ingredientes_user.append(substituto)
+
+# ✅ CORREÇÃO: Se TEM bacalhau → garantir que entra na lista
+if tem_bacalhau == "Sim" and "bacalhau" not in ingredientes_user:
+    ingredientes_user.append("bacalhau")
+
+
 # 👉 REGRA FINAL (bug resolvido definitivamente)
 if substituto != "bacalhau" and substituto not in ingredientes_user:
     ingredientes_user.append(substituto)
